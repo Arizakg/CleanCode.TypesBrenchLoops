@@ -1,8 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-
-
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 Console.WriteLine("Добро пожаловать в игру 'Угодай число'\nПрошу введите своё имя:");
@@ -18,43 +16,55 @@ while (userStartGame != ConsoleKey.N)
         case ConsoleKey.Y:
             gameProces();
             break;
-
-        default:
-            Console.WriteLine("\n{0} \nДля старта игры нажмите Y\nДля выхода нажмите N\nПопробуем еще раз:", userName);
-            break;
     }
+
+    Console.WriteLine("\n{0} \nДля старта игры нажмите Y\nДля выхода нажмите N\nПопробуем еще раз:", userName);
     ConsoleKey key = Console.ReadKey().Key;
     userStartGame = key;
 }
 
         
-Console.WriteLine("\nПока пока {0}", userName);
+Console.WriteLine("\n\nПока Пока {0}", userName);
+
 
 
 void gameProces()
 {
     Random random = new Random();
-    int value = random.Next(0, 99);
+    int secretNumber = random.Next(0, 100);  
 
-    Console.Write("\nЯ загадал число от 0 до 99, попробуй угодай:");
-    int userAnswer = int.Parse(Console.ReadLine());
+    int userAnswer = -1;
+    bool isIntNumber = false;
 
-    while (value != userAnswer)
+    Console.Write("\nЯ загадал число от 0 до 100, попробуй угодай:");
+
+    while (secretNumber != userAnswer)
     {
-        if (value > userAnswer)
-        {
-            Console.Write("\nЯ загадал число больше, попробуй еще раз:");
-        }
-        if (value < userAnswer)
-        {
-            Console.Write("\nЯ загадал число меньше, попробуй еще раз:");
-        }
+        do
+        {            
+            isIntNumber = int.TryParse(Console.ReadLine(), out userAnswer);
 
-        int newUserAnswer = int.Parse(Console.ReadLine());
-        userAnswer = newUserAnswer;
-    }
+            if (!isIntNumber)
+            {
+                Console.Write("Вы ввели какуюто фигню, введите число:");
+            }
 
-    Console.WriteLine("\nДа это число {0} \nТы победил поздравляю!!!", value);
+        } while (!isIntNumber);
+
+
+        if (secretNumber > userAnswer)
+        {
+            Console.Write("Я загадал число больше, попробуй еще раз:");
+        }
+        if (secretNumber < userAnswer)
+        {
+            Console.Write("Я загадал число меньше, попробуй еще раз:");
+        }
+        if (secretNumber == userAnswer) 
+        {
+            Console.WriteLine("\nДа это число {0} \nТы победил поздравляю!!!", secretNumber);
+        }
+    }   
 }
 
 
