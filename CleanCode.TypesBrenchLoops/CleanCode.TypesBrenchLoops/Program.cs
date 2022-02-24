@@ -9,6 +9,8 @@ Console.WriteLine("Привет {0}\nЯ загадаю число а ты поп
 //ConsoleKey userStartGame = ConsoleKey.A;
 ConsoleKey userStartGame = Console.ReadKey().Key;
 
+
+
 while (userStartGame != ConsoleKey.N)
 {
     switch (userStartGame)
@@ -36,10 +38,15 @@ void gameProces()
     int userAnswer = -1;
     bool isIntNumber = false;
 
+    //количество попыток игрока
+    int userGameStep = 0;
+
     Console.Write("\nЯ загадал число от 0 до 100, попробуй угодай:");
 
     while (secretNumber != userAnswer)
     {
+        userGameStep++;
+
         do
         {            
             isIntNumber = int.TryParse(Console.ReadLine(), out userAnswer);
@@ -62,7 +69,7 @@ void gameProces()
         }
         if (secretNumber == userAnswer) 
         {
-            Console.WriteLine("\nДа это число {0} \nТы победил поздравляю!!!", secretNumber);
+            Console.WriteLine("\nДа это число {0} \n{1}\nТы победил поздравляю!!!\nТебе потребовалось {2} ходов", secretNumber, userName, userGameStep);
         }
     }   
 }
